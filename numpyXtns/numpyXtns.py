@@ -3,11 +3,11 @@ try:
     from itertools import izip as zip
 except ImportError:
     pass
-from numpy import array, round, where, ones, convolve, nomask, \
+from numpy import array, round, where, ones, convolve, \
     hanning, hamming, bartlett, blackman, r_, median, sqrt, floor, resize, \
     empty, sort, apply_along_axis, int_, mean, unravel_index, log10, float_
 from gzip import open as opengz
-from numpy.ma import MaskedArray, getmaskarray
+from numpy.ma import MaskedArray, getmaskarray, nomask
 from datetime import datetime, timedelta
 from numpy.ma import array as marray
 try:
