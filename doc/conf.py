@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# ncPyTools documentation build configuration file, created by
+# numpyXtns documentation build configuration file, created by
 # sphinx-quickstart on Sat Nov  5 03:44:48 2016.
 #
 # This file is execfile()d with the current directory set to its

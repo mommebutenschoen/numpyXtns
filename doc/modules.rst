@@ -1,7 +1,7 @@
-ncPyTools
+numpyXtns
 =========
 
 .. toctree::
    :maxdepth: 4
 
-   ncPyTools
+   numpyXtns

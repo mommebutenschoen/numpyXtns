@@ -95,9 +95,9 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/ncPyTools.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/numpyXtns.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/ncPyTools.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/numpyXtns.qhc"
 
 .PHONY: applehelp
 applehelp:
@@ -114,8 +114,8 @@ devhelp:
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/ncPyTools"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/ncPyTools"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/numpyXtns"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/numpyXtns"
 	@echo "# devhelp"
 
 .PHONY: epub

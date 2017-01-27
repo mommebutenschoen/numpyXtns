@@ -1,10 +1,10 @@
-ncPyTools package
+numpyXtns package
 =================
 
 Submodules
 ----------
 
-ncPyTools.netCDFTemplate module
+numpyXtns.netCDFTemplate module
 -------------------------------
 
 .. automodule:: numpyXtns.numpyXtns
