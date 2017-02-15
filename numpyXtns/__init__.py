@@ -2,4 +2,4 @@
 numpyXtns package initialisation.
 """
 
-from numpyXtns import *
+from numpyXtns.numpyXtns import *
