@@ -2,5 +2,5 @@
 *~
 *.swp
 __pycache__
-ncPyTools.egg-info/
+numpyXtns.egg-info/
 _build
