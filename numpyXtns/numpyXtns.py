@@ -5,9 +5,9 @@ except ImportError:
     pass
 from numpy import array, round, where, ones, convolve, \
     hanning, hamming, bartlett, blackman, r_, median, sqrt, floor, resize, \
-    empty, sort, apply_along_axis, int_, mean, unravel_index, log10, float_
+    empty, sort, apply_along_axis, int_, mean, unravel_index, log10, float_, NaN
 from gzip import open as opengz
-from numpy.ma import MaskedArray, getmaskarray, nomask
+from numpy.ma import MaskedArray, getmaskarray, nomask,masked_where
 from datetime import datetime, timedelta
 from numpy.ma import array as marray
 try:
@@ -79,6 +79,56 @@ try:
 except:
     mquantiles = quantiles
 
+def wquantiles(data,weights,prob=[0.5,],axis=None):
+    """
+    Computes weighted quantiles as the intersect on the probability axis of
+    the corresponding cumulative distribution function, where the bin width
+    of each sample on the probability axis is given by its relative weight
+    (i.e. the weights are normalised to add up to 1).
+
+    Args:
+        data (array of sortable type): input dataset
+        weights (array of floats): weight for each sample, same dimension
+            as input dataset
+        prob (sequence of floats): quantiles to be computed (defaults to median)
+    Returns:
+        List with quantile data for each probability requested.
+    This function does not deals with masks, if you have masked data,
+    retrieve the pure data and wet the weight factors to 0 for the masked
+    elements.
+    """
+    from pdb import set_trace
+    if axis == None:
+        # Process all data as flat array computing the oeverall quantiles
+        a = array(data).ravel()
+        w = array(weights).ravel()
+    else:
+        # Reorder, so that the dimension to be processed is last
+        transorder=list(range(array(data).ndim))
+        transorder.append(transorder.pop(axis))
+        a = array(data).transpose(transorder)
+        w = array(weights).transpose(transorder)
+    # Preallocate return list:
+    nprobs=len(prob)
+    wquants=empty((nprobs,)+a.shape[:-1])
+    #Process by column
+    for n,(a_col,w_col) in enumerate(
+        zip(a.reshape([-1,a.shape[-1]]),w.reshape([-1,w.shape[-1]])) ):
+        if any(w_col==0.):
+            a_col=masked_where(w_col==0.,a_col).compressed()
+            w_col=masked_where(w_col==0.,w_col).compressed()
+        if len(a_col)>1:
+            idx=a_col.argsort()
+            a_col.sort()
+            w_cum=w_col[idx].cumsum()/w_col.sum()
+            for np,p in enumerate(prob):
+                k_prob=where(w_cum<p,1,0).sum()
+                wquants.reshape([nprobs,-1])[np,n]=a_col[k_prob]
+        elif len(a_col)==1:
+            wquants.reshape([nprobs,-1])[:,n]=a_col[0]
+        else:
+            wquants.reshape([nprobs,-1])[:,n]=NaN
+    return wquants
 
 def point_inside_polygon(x, y, poly):
     """Check if point (x,y) is in polygon poly.
