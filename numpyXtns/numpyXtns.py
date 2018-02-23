@@ -92,7 +92,8 @@ def wquantiles(data,weights,prob=[0.5,],axis=None):
             as input dataset
         prob (sequence of floats): quantiles to be computed (defaults to median)
     Returns:
-        List with quantile data for each probability requested.
+        Array with quantile data for each probability requested in the first
+        dimension.
     This function does not deals with masks, if you have masked data,
     retrieve the pure data and wet the weight factors to 0 for the masked
     elements.
