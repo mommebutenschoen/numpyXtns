@@ -81,8 +81,8 @@ except:
 
 def wquantiles(data,weights,prob=[0.5,],axis=None):
     """
-    Computes weighted quantiles as the intersect on the probability axis of
-    the corresponding cumulative distribution function, where the bin width
+    Computes weighted quantiles as the intersect of the probability level with
+    the corresponding cumulative distribution function, where the bin height
     of each sample on the probability axis is given by its relative weight
     (i.e. the weights are normalised to add up to 1).
 
