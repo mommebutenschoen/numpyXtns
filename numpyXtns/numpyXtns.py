@@ -94,8 +94,8 @@ def wquantiles(data,weights,prob=[0.5,],axis=None):
     Returns:
         Array with quantile data for each probability requested in the first
         dimension.
-    This function does not deals with masks, if you have masked data,
-    retrieve the pure data and wet the weight factors to 0 for the masked
+    This function does not deal with mask, if you have masked data,
+    retrieve the pure data and set the weight factors to 0 for the masked
     elements.
     """
     if axis == None:
