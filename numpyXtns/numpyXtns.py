@@ -98,7 +98,6 @@ def wquantiles(data,weights,prob=[0.5,],axis=None):
     retrieve the pure data and wet the weight factors to 0 for the masked
     elements.
     """
-    from pdb import set_trace
     if axis == None:
         # Process all data as flat array computing the oeverall quantiles
         a = array(data).ravel()
