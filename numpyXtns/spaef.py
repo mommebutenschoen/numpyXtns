@@ -16,11 +16,25 @@ Literature:
 [3] Demirel, M. C., Koch, J. and Stisen, S.: SPAEF: SPAtial EFficiency, Researchgate, https://doi.org/10.13140/RG.2.2.18400.58884, 2017b.
 
 function:
-    SPAEF : spatial efficiency   
+    SPAEF : spatial efficiency
 """
 
 import numpy as np
-from scipy.stats import variation,zscore
+from scipy.stats import variation,zscore,spearmanr
+
+def QCP(data):
+    """Quartile coefficient of dispersion, robust version of variation coefficientself.
+    Defined as (Q3-Q1)/(Q3+Q1).
+
+    Args:
+        s (numpy float array): data set to be evaluated, clean without masked values,
+            NaNs or other invalid points.
+
+    Returns:
+        Quartile coefficient of dispersion (float)."""
+
+    q25,q75=np.quantile(data,(.25,.75))
+    return (q75-q25)/(q75+q25)
 
 def SPAEF(s, o, bins=100):
     """Compute spatial efficiency metric SPAEF for a data set with respect to a reference.
@@ -33,9 +47,9 @@ def SPAEF(s, o, bins=100):
         bins (integer): number of bins to be used in histograms of SPAEF
 
     Returns:
-        float tuple with SPAEF, correlation coefficient, fraction of coefficient of variations
-        and histogram match coefficient
-    
+        float tuple with robust SPAEF, Pearson correlation coefficient, fraction of coefficient of variations
+        and histogram match coefficient.
+
     """
     #compute ratio of CV
     alpha = variation(s)/variation(o)
@@ -48,13 +62,51 @@ def SPAEF(s, o, bins=100):
     #convert int to float, critical conversion for the result
     hobs=np.float64(hobs)
     hsim=np.float64(hsim)
-    #find the overlapping of two histogram      
+    #find the overlapping of two histogram
     minima = np.minimum(hsim, hobs)
-    #compute the fraction of intersection area to the observed histogram area, hist intersection/overlap index   
+    #compute the fraction of intersection area to the observed histogram area, hist intersection/overlap index
     hh = np.sum(minima)/np.sum(hobs)
     #compute corr coeff
     cc = np.corrcoef(s,o)[0,1]
     #compute SPAEF finally with three vital components
-    spaef = 1- np.sqrt( (cc-1)**2 + (alpha-1)**2 + (hh-1)**2 )  
+    spaef = 1- np.sqrt( (cc-1)**2 + (alpha-1)**2 + (hh-1)**2 )
+
+    return spaef, cc, alpha, hh
+
+def robust_SPAEF(s, o, bins=100):
+    """Compute spatial efficiency metric SPAEF for a data set with respect to a reference,
+    statistically robust version.
+
+    Args:
+        s (numpy float array): data set to be evaluated, clean without masked values,
+            NaNs or other invalid points
+        o (numpy float array): reference data, clean without masked values,
+            NaNs or other invalid points, needs to be of the same shape as s
+        bins (integer): number of bins to be used in histograms of SPAEF
+
+    Returns:
+        float tuple with SPAEF, Spearman correlation coefficient, fraction of quartile coefficient of dispersion
+        and histogram match coefficient.
+
+    """
+    #compute ratio of CV
+    alpha = QCP(s)/QCP(o)
+    #compute zscore mean=0, std=1
+    o=zscore(o)
+    s=zscore(s)
+    #compute histograms
+    hobs,binobs = np.histogram(o,bins)
+    hsim,binsim = np.histogram(s,bins)
+    #convert int to float, critical conversion for the result
+    hobs=np.float64(hobs)
+    hsim=np.float64(hsim)
+    #find the overlapping of two histogram
+    minima = np.minimum(hsim, hobs)
+    #compute the fraction of intersection area to the observed histogram area, hist intersection/overlap index
+    hh = np.sum(minima)/np.sum(hobs)
+    #compute corr coeff
+    cc = spearmanr(s,o)[0]
+    #compute SPAEF finally with three vital components
+    spaef = 1- np.sqrt( (cc-1)**2 + (alpha-1)**2 + (hh-1)**2 )
 
     return spaef, cc, alpha, hh
