@@ -21,7 +21,7 @@ or to install in developers mode::
 Documentation:
 --------------
 
-Documentation to this package can be found here_.
+Documentation to this package can be found on readthedocs_.
 
 
-.. _here: https://numpyxtns.readthedocs.io/
+.. _readthedocs: https://numpyxtns.readthedocs.io/

@@ -51,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'numpyXtns'
-copyright = u'2017, Momme Butenschön'
+copyright = u'2016-2020, Momme Butenschön'
 author = u'Momme Butenschön'
 
 # The version info for the project you're documenting, acts as replacement for
