@@ -490,3 +490,16 @@ def RMSE(d1, d2, ax=None):
         return sqrt(((d1-d2)**2).sum()/d1.ravel().shape[0])
     else:
         return sqrt(((d1-d2)**2).sum(ax)/d1.shape[ax])
+
+def sd_N(x,N=2):
+    """Convert number to N significant digits.
+
+    Args:
+        x (float): float to Convert
+        N (integer): number of significant digits to keep
+
+    Returns:
+        Converted number (float).
+    """
+    fmtstr="{:."+"{}".format(N-1)+"e}"
+    return float(fmtstr.format(x)) # convert float to two siginificant digits
