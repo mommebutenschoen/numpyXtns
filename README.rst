@@ -18,7 +18,7 @@ or to install in developers mode::
 
   pip install -e .
 
-Or install tbe latest releaase from PyPI::
+Or install the latest releaase from PyPI::
 
   pip install numpyXtns
 
