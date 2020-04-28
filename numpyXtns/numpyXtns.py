@@ -14,7 +14,7 @@ try:
     xrange(1)  # python2
 except NameError:
     xrange = range  # python3
-
+import logging
 
 def quantiles(data, prob=[.25, .5, .75], alphap=.4, betap=.4, axis=None):
     """Computes empirical quantiles for a *1xN* data array.
@@ -263,7 +263,7 @@ def loadASCIIlist(fname, separator=None, fillValue=None, dtype=None):
     for el in dlist:
         data.append(el.rstrip('\r\n').split(separator))
     if fillValue:
-        print("filling empty entries...")
+        logging.info("filling empty entries...")
         data = [[(el.strip() == '' and [fillValue] or [el])[0]
                  for el in elem] for elem in data]
     if dtype:
