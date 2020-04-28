@@ -21,8 +21,7 @@ def quantiles(data, prob=[.25, .5, .75], alphap=.4, betap=.4, axis=None):
     Samples quantile are defined by:
     *Q(p) = (1-g).x[i] +g.x[i+1]*
     where *x[j]* is the jth order statistic,
-    with *i = (floor(n*p+m))*,
-       *m=alpha+p*(1-alpha-beta)* and *g = n*p + m - i)*.
+    with *i = (floor(n*p+m))*, *m=alpha+p*(1-alpha-beta)* and *g = n*p + m - i)*.
 
     Typical values of (alpha,beta) are:
 
