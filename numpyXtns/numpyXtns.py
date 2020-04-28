@@ -49,7 +49,7 @@ def quantiles(data, prob=[.25, .5, .75], alphap=.4, betap=.4, axis=None):
             If `None`, uses the whole (flattened/compressed) dataset.
 
     Returns:
-        Array with quantiles at the probabilities requested.
+        Array with quantiles at the probabilities requested, returns NaN for points masked in all samples.
     """
     def _quantiles1D(data, m, p):
         x = sort(data.compressed())
