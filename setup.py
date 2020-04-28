@@ -29,7 +29,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://gitlab.ecosystem-modelling.pml.ac.uk:momm/numpyXtns',
+    url='https://github.com/mommebutenschoen/numpyXtns',
 
     # Author details
     author='Momme Butenschön',
