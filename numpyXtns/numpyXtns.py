@@ -89,10 +89,12 @@ def wquantiles(data,weights,prob=[0.5,],axis=None):
         data (array of sortable type): input dataset
         weights (array of floats): weight for each sample, same dimension
             as input dataset
-        prob (sequence of floats): quantiles to be computed (defaults to median)
+        prob (sequence of floats): quantiles to be computed
+
     Returns:
         Array with quantile data for each probability requested in the first
         dimension.
+
     This function does not deal with mask, if you have masked data,
     retrieve the pure data and set the weight factors to 0 for the masked
     elements.
@@ -348,6 +350,7 @@ def secsSince(date, refdate):
     Args:
         date (datetime): Date.
         refdate (datetime) Reference date.
+
     Returns:
         Seconds passed (integer).
     """
@@ -378,6 +381,7 @@ def midMonth(y, m):
     Args:
         y (int): Year.
         m (int): Month.
+
     Returns:
         `datetime` object in the middle of the month.
     """
@@ -393,6 +397,7 @@ def midYear(y):
 
     Args:
         y (int): Year.
+
     Returns:
         `datetime` object in the middle of the year.
     """
